@@ -14,6 +14,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setQuery(input.current.value);
+    setPage(1);
   };
   const fetchImages = async () => {
     setLoading(true);
@@ -29,9 +30,10 @@ function App() {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
       setPhotos((prev) => {
-        if (query) {
+        if (query && page === 1) {
+          return data.results;
+        } else if (query) {
           return [...prev, ...data.results];
         } else {
           return [...prev, ...data];
