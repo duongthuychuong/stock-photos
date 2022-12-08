@@ -29,6 +29,22 @@ function App() {
   useEffect(() => {
     fetchImages();
   }, []);
+  useEffect(() => {
+    const event = window.addEventListener("scroll", () => {
+      if (
+        !loading &&
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 15
+      ) {
+        console.log("worked");
+      }
+      console.log(`innerHeight ${window.innerHeight}`);
+      console.log(`scrollY ${window.scrollY}`);
+      console.log(`body height ${document.body.scrollHeight}`);
+    });
+    return () => {
+      window.removeEventListener(event);
+    };
+  }, []);
   return (
     <main>
       <section className="search">
